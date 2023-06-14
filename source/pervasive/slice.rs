@@ -43,4 +43,20 @@ pub exec fn slice_subrange<T, 'a>(slice: &'a [T], i: usize, j: usize) -> (out: &
     &slice[i .. j]
 }
 
+#[verifier(external_body)]
+pub exec fn slice_len<T>(slice: &[T]) -> (r: usize)
+    ensures r == slice.view().len(),
+{
+    slice.len() 
+}
+
+#[verifier(external_body)]
+pub exec fn slice_get_unchecked<T, 'a>(slice: &'a [T], i: usize) -> (r: &'a T)
+    requires 0 <= i < slice@.len()
+    ensures r == slice@.index(i as int)
+{
+    unsafe { slice.get_unchecked(i) }
+}
+
+
 }
