@@ -39,7 +39,8 @@ fn binary_search(v: &Vec<i64>, k: i64) -> (index: usize)
             high < v.len(), 
             exists|i:int| low <= i <= high && k == v[i], 
             forall|i:int, j:int| 0 <= i <= j < v.len() ==> v[i] <= v[j],
-    {    
+    {   
+        let mid = low + (high-low)/2;
         if *v.index(mid) < k {
             low = mid + 1;
         }else {
